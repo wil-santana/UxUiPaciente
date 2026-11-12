@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consulta Fácil — Interface UI/UX do Paciente &amp; Acessibilidade WCAG Sênior</title>
+  <!-- Framework de Estilização Obrigatório: Bootstrap 5.3 (Mercado) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <!-- Design System Centralizado via Variáveis CSS e Customização do Bootstrap -->
+  <link rel="stylesheet" href="styles/design-system.css" />
+</head>
+<body>
+
+  <!-- Link de Pulo para Usuários de Teclado (WCAG 2.4.1 Bypass Blocks) -->
+  <a href="#main-content" class="skip-link">Pular diretamente para o conteúdo principal</a>
+
+  <!-- Região Live para Anúncios Dinâmicos a Leitores de Tela (NVDA / VoiceOver / TalkBack) -->
+  <div id="sr-announcements" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Cabeçalho Institucional do Showcase -->
+  <header class="app-header">
+    <div class="brand-group">
+      <!-- Logotipo Estilizado em SVG com Silhueta Médica e Estetoscópio -->
+      <svg class="brand-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logotipo Consulta Fácil: Médico de Jaleco com Estetoscópio">
+        <defs>
+          <linearGradient id="hdrGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0284C7" />
+            <stop offset="100%" stop-color="#0F52BA" />
+          </linearGradient>
+        </defs>
+        <rect x="4" y="4" width="92" height="92" rx="24" fill="url(#hdrGrad)" />
+        <path d="M 33 39 C 33 25 40 18 50 18 C 60 18 67 25 67 39 C 67 44 65 48 62 50 C 58 49 42 49 38 50 C 35 48 33 44 33 39 Z" fill="#FFFFFF" />
+        <path d="M 33 34 C 40 31 60 31 67 34" stroke="#0284C7" stroke-width="2.5" fill="none" stroke-linecap="round" />
+        <path d="M 36 43 C 36 43 50 44 64 43 C 65 50 63 57 50 58 C 37 57 35 50 36 43 Z" fill="#E0F2FE" stroke="#0284C7" stroke-width="2" />
+        <path d="M 22 84 C 22 68 34 61 50 61 C 66 61 78 68 78 84 Z" fill="#FFFFFF" />
+        <path d="M 40 59 C 35 62 33 69 33 74 C 33 78 37 81 42 81 C 47 81 49 77 49 74" fill="none" stroke="#0F172A" stroke-width="3.5" stroke-linecap="round" />
+        <path d="M 60 59 C 65 62 67 69 67 74 C 67 78 63 81 58 81 C 53 81 51 77 51 74" fill="none" stroke="#0F172A" stroke-width="3.5" stroke-linecap="round" />
+        <circle cx="50" cy="80" r="5.5" fill="#38BDF8" stroke="#0F172A" stroke-width="2.5" />
+        <circle cx="50" cy="80" r="2.2" fill="#FFFFFF" />
+      </svg>
+      <div class="brand-titles">
+        <h1>Consulta Fácil <span class="badge-app">Acessível Sênior</span></h1>
+        <p>Interface Front-End &amp; UI/UX para Terceira Idade e Baixa Literacia Digital</p>
+      </div>
+    </div>
+    <div class="header-controls">
+      <!-- Botão Acessível de Alternância do Modo Sênior -->
+      <button class="senior-toggle-btn" id="btnToggleSenior" onclick="toggleSeniorMode()" aria-pressed="false" aria-label="Alternar Modo Sênior com fontes ampliadas em vinte por cento">
+        <span>🔍 Modo Sênior (Fontes Ampliadas)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Navegação de Abas do Showcase de Telas do Paciente -->
+  <nav class="tab-nav" aria-label="Navegação entre telas interativas do paciente">
+    <button class="tab-btn active" data-tab="tela1" onclick="switchTab('tela1')" aria-selected="true" role="tab">
+      <span>1️⃣</span> Tela 01 — Boas-Vindas
+    </button>
+    <button class="tab-btn" data-tab="tela2" onclick="switchTab('tela2')" aria-selected="false" role="tab">
+      <span>2️⃣</span> Tela 02 — Login Seguro
+    </button>
+    <button class="tab-btn" data-tab="tela3" onclick="switchTab('tela3')" aria-selected="false" role="tab">
+      <span>3️⃣</span> Tela 03 — Novo Cadastro
+    </button>
+    <button class="tab-btn" data-tab="tela4" onclick="switchTab('tela4')" aria-selected="false" role="tab">
+      <span>4️⃣</span> Tela 04 — Minhas Consultas
+    </button>
+    <button class="tab-btn" data-tab="tela5" onclick="switchTab('tela5')" aria-selected="false" role="tab">
+      <span>5️⃣</span> Tela 05 — Nova Consulta
+    </button>
+    <button class="tab-btn" data-tab="tela6" onclick="switchTab('tela6')" aria-selected="false" role="tab">
+      <span>6️⃣</span> Tela 06 — Reagendar
+    </button>
+    <button class="tab-btn" data-tab="geral" onclick="switchTab('geral')" aria-selected="false" role="tab">
+      <span>📋</span> Visão Geral &amp; Arquitetura
+    </button>
+  </nav>
+
+  <!-- Área Principal do Conteúdo -->
+  <main class="content-wrapper" id="main-content">
+
+    <!-- ====================================================================
+         TELA 01 — BOAS-VINDAS & ACESSO RÁPIDO
+         ==================================================================== -->
+    <section id="panel-tela1" class="screen-panel active" aria-labelledby="t1-title">
+      <!-- Simulador Mobile à Esquerda -->
+      <div class="phone-container">
+        <div class="phone-badge">SIMULADOR MOBILE (390 x 800)</div>
+        <div class="mockup-frame">
+          <div class="screen-viewport">
+            <div class="status-bar" aria-hidden="true">
+              <span>09:41</span>
+              <div class="dynamic-notch"></div>
+              <span>📶 🔋</span>
+            </div>
+
+            <div class="mobile-header">
+              <div class="mobile-brand">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="4" y="4" width="92" height="92" rx="24" fill="#0F52BA" />
+                  <path d="M 33 39 C 33 25 40 18 50 18 C 60 18 67 25 67 39 C 67 44 65 48 62 50 C 58 49 42 49 38 50 C 35 48 33 44 33 39 Z" fill="#FFFFFF" />
+                  <path d="M 22 84 C 22 68 34 61 50 61 C 66 61 78 68 78 84 Z" fill="#FFFFFF" />
+                  <path d="M 40 59 C 35 62 33 69 33 74 C 33 78 37 81 42 81 C 47 81 49 77 49 74" fill="none" stroke="#0F172A" stroke-width="3" />
+                  <path d="M 60 59 C 65 62 67 69 67 74 C 67 78 63 81 58 81 C 53 81 51 77 51 74" fill="none" stroke="#0F172A" stroke-width="3" />
+                  <circle cx="50" cy="80" r="5" fill="#38BDF8" stroke="#0F172A" stroke-width="2" />
+                </svg>
+                <span>Consulta Fácil</span>
+              </div>
+              <button class="btn-help-top" onclick="alert('Central de Apoio 0800: Ligação gratuita disponível!');" aria-label="Ligar para a Central de Apoio Gratuita 0800">
+                <span aria-hidden="true">📞</span> Ajuda
+              </button>
+            </div>
+
+            <div class="mobile-body">
+              <span class="screen-tag">Saúde sem Complicação</span>
+              <h2 class="screen-title" id="t1-m-title">Suas consultas médicas na hora certa.</h2>
+              <p class="screen-desc">
+                Agende e acompanhe consultas com seus médicos sem pegar filas e com confirmação no celular.
+              </p>
+
+              <!-- Botões de Ação na Primeira Dobra (Thumb Zone) -->
+              <div style="display:flex; flex-direction:column; gap:12px; margin-top:4px;">
+                <button class="btn-mobile-primary" onclick="switchTab('tela2')" aria-label="Entrar na minha conta de paciente">
+                  👉 ENTRAR NA MINHA CONTA
+                </button>
+                <button class="btn-mobile-secondary" onclick="switchTab('tela3')" aria-label="Criar um novo cadastro de paciente">
+                  ➕ Criar Novo Cadastro
+                </button>
+              </div>
+
+              <!-- Cartões de Benefícios Claros -->
+              <div class="benefit-card">
+                <span class="benefit-icon" aria-hidden="true">🩺</span>
+                <div class="benefit-info">
+                  <h4>Médicos de Confiança</h4>
+                  <p>Clínica geral, cardiologia, oftalmologia e mais especialidades.</p>
+                </div>
+              </div>
+
+              <div class="benefit-card">
+                <span class="benefit-icon" aria-hidden="true">📱</span>
+                <div class="benefit-info">
+                  <h4>Aviso no seu WhatsApp</h4>
+                  <p>Lembretes do dia e hora da consulta direto no seu celular.</p>
+                </div>
+              </div>
+
+              <!-- Suporte Telefônico 0800 Gratuito -->
+              <a href="tel:08007008000" class="senior-phone-callout" aria-label="Dificuldade com celular? Toque para ligar grátis no 0800 700 8000">
+                <span class="call-icon" aria-hidden="true">☎️</span>
+                <div>
+                  <strong>Tem dificuldade com o celular?</strong>
+                  Toque para ligar grátis: <u>0800 700 8000</u>
+                </div>
+              </a>
+
+              <div style="text-align:center; font-size:calc(12px * var(--font-scale)); color:#64748B; padding:6px 0;">
+                🔒 Sistema seguro e certificado padrão CFM / SUS
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Painel de Especificações Técnicas à Direita -->
+      <div class="rules-panel">
+        <div class="board-header">
+          <div class="board-pre-title"><span>✦</span> ESPECIFICAÇÃO DE INTERFACE — TELA 01/06</div>
+          <h2 id="t1-title">Tela 01 — Boas-Vindas &amp; Acesso Rápido</h2>
+          <p>
+            Interface de acolhimento e entrada. Prioriza caminhos diretos na zona de alcance do polegar e oferece suporte telefônico imediato para idosos.
+          </p>
+        </div>
+
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>🎯 Arquitetura de Informação &amp; Funcionalidades</h3>
+            <span class="rule-badge badge-streamline">Foco Cognitivo</span>
+          </div>
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th style="width: 28%;">Componente</th>
+                <th style="width: 38%;">Decisão de Interface</th>
+                <th style="width: 34%;">Benefício para o Paciente Sênior</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="spec-feature">CTAs na Primeira Dobra</span></td>
+                <td>Botões com altura de 56px e largura total (100%).</td>
+                <td>Localização instantânea dos botões de entrada sem exigir rolagem da tela.</td>
+              </tr>
+              <tr>
+                <td><span class="spec-feature">Tipografia Expandida</span></td>
+                <td>Piso de 16px a 18px com contraste 14.2:1 sobre o fundo branco.</td>
+                <td>Leitura nítida para pessoas com presbiopia e catarata sem necessidade de pinçar a tela.</td>
+              </tr>
+              <tr>
+                <td><span class="spec-feature">Canal Telefônico 0800</span></td>
+                <td>Card de suporte em tom âmbar com ligação assistida gratuita.</td>
+                <td>Elimina o medo psicológico de errar ou travar na interface digital.</td>
+              </tr>
+              <tr>
+                <td><span class="spec-feature">Semântica e ARIA</span></td>
+                <td>Tags semânticas <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code> e atributos <code>aria-label</code>.</td>
+                <td>Compatibilidade perfeita com leitores de tela NVDA, TalkBack e VoiceOver.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>🎨 Paleta 60-30-10 &amp; Contraste WCAG 2.1 AAA</h3>
+            <span class="rule-badge badge-wcag">WCAG AAA (>7:1)</span>
+          </div>
+          <ul class="rule-list">
+            <li><strong>60% Fundo Neutro (#F8FAFC):</strong> Elimina a fadiga visual e ofuscamento provocados por fundos excessivamente brancos.</li>
+            <li><strong>30% Estrutura e Texto (#0F172A):</strong> Tipografia escura de alta legibilidade, atingindo 14.2:1 de taxa de contraste.</li>
+            <li><strong>10% Ação Principal (#0F52BA):</strong> Azul hospitalar de confiança, guiando o foco visual do paciente sem ruído.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TELA 02 — LOGIN SEGURO & DESCOMPLICADO
+         ==================================================================== -->
+    <section id="panel-tela2" class="screen-panel" aria-labelledby="t2-title">
+      <div class="phone-container">
+        <div class="phone-badge">SIMULADOR MOBILE (390 x 800)</div>
+        <div class="mockup-frame">
+          <div class="screen-viewport">
+            <div class="status-bar" aria-hidden="true">
+              <span>09:41</span>
+              <div class="dynamic-notch"></div>
+              <span>📶 🔋</span>
+            </div>
+
+            <!-- Modal Sheet de Login Acessível -->
+            <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="t2-m-title">
+              <div class="modal-sheet">
+                <div class="modal-header-row">
+                  <span class="screen-tag">Acesso Seguro</span>
+                  <button class="btn-close-modal" onclick="switchTab('tela1')" aria-label="Fechar janela de login e voltar ao início">✕</button>
+                </div>
+
+                <div>
+                  <h2 class="screen-title" id="t2-m-title">Entrar na Conta</h2>
+                  <p class="screen-desc">Permite consultar e marcar suas consultas médicas.</p>
+                </div>
+
+                <form onsubmit="handleLoginSubmit(event)">
+                  <div class="form-group">
+                    <label class="form-label" for="login-user">
+                      <span>Seu CPF ou E-mail <strong style="color:#DC2626">*</strong></span>
+                    </label>
+                    <input type="text" id="login-user" class="form-input" data-mask="cpf" placeholder="000.000.000-00 ou seu e-mail" value="123.456.789-00" required />
+                    <span class="form-hint">Dica: Idosos podem digitar apenas o número do CPF</span>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="login-pwd">
+                      <span>Sua Senha <strong style="color:#DC2626">*</strong></span>
+                    </label>
+                    <div class="password-wrap">
+                      <input type="password" id="login-pwd" value="minhasenha123" required />
+                      <button type="button" class="btn-toggle-pwd" id="btnToggleLoginPwd" onclick="togglePasswordVisibility('login-pwd', 'btnToggleLoginPwd')" aria-label="Mostrar senha">
+                        👁️ Mostrar
+                      </button>
+                    </div>
+                  </div>
+
+                  <div style="display:flex; flex-direction:column; gap:8px; margin: 6px 0 14px;">
+                    <label class="checkbox-senior-row">
+                      <input type="checkbox" checked />
+                      <span>Lembrar de mim neste celular</span>
+                    </label>
+                    <a href="#" onclick="alert('Enviaremos um código SMS para o seu celular cadastrado.'); return false;" style="color:#0F52BA; font-size:calc(15px * var(--font-scale)); font-weight:700; text-decoration:underline; padding:4px 0;">
+                      Esqueci minha senha? (Recuperar por SMS)
+                    </a>
+                  </div>
+
+                  <div style="display:flex; flex-direction:column; gap:10px;">
+                    <button type="submit" class="btn-mobile-primary">
+                      ENTRAR NO SISTEMA
+                    </button>
+                    <button type="button" class="btn-mobile-neutral" onclick="switchTab('tela1')">
+                      Voltar ao Início
+                    </button>
+                  </div>
+                </form>
+
+                <div style="text-align:center; padding-top:6px; font-size:calc(14px * var(--font-scale)); color:#475569;">
+                  Ainda não tem cadastro? <a href="#" onclick="switchTab('tela3'); return false;" style="color:#0F52BA; font-weight:800;">Cadastre-se grátis</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rules-panel">
+        <div class="board-header">
+          <div class="board-pre-title"><span>✦</span> ESPECIFICAÇÃO DE INTERFACE — TELA 02/06</div>
+          <h2 id="t2-title">Tela 02 — Modal de Login Seguro &amp; Descomplicado</h2>
+          <p>
+            Autenticação simplificada: login nativo por CPF memorizado, conferência de senha sem bloqueios e foco visual WCAG 2.4.7.
+          </p>
+        </div>
+
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>🎯 Funcionalidades &amp; Facilidades de Acesso</h3>
+            <span class="rule-badge badge-streamline">Acessibilidade</span>
+          </div>
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th style="width: 28%;">Funcionalidade</th>
+                <th style="width: 38%;">Decisão de Interface</th>
+                <th style="width: 34%;">Benefício para o Paciente Sênior</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="spec-feature">Identificação por CPF</span></td>
+                <td>Campo com máscara dinâmica <code>000.000.000-00</code>.</td>
+                <td>O CPF é o documento que o idoso mais tem facilidade de lembrar de cabeça.</td>
+              </tr>
+              <tr>
+                <td><span class="spec-feature">Botão Bimodal [Mostrar Senha]</span></td>
+                <td>Altera o tipo do input para texto legível de forma acessível.</td>
+                <td>Permite conferir os dígitos digitados antes de submeter, prevenindo bloqueio acidental.</td>
+              </tr>
+              <tr>
+                <td><span class="spec-feature">Recuperação via SMS</span></td>
+                <td>Dispara código direto para o chip do celular.</td>
+                <td>Dispensa a necessidade de abrir programas de e-mail externos no smartphone.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>🛡️ Gestalt (Figura-Fundo) &amp; Foco Visível WCAG 2.4.7</h3>
+            <span class="rule-badge badge-wcag">Foco &amp; Contraste</span>
+          </div>
+          <ul class="rule-list">
+            <li><strong>Fundo Escurecido com Desfoque (Overlay 75%):</strong> Isola a atenção no formulário e remove distrações periféricas.</li>
+            <li><strong>Anel de Foco de 3px (#0284C7):</strong> Navegação 100% clara utilizando a tecla <code>Tab</code> no teclado físico ou virtual.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TELA 03 — NOVO CADASTRO SIMPLIFICADO
+         ==================================================================== -->
+    <section id="panel-tela3" class="screen-panel" aria-labelledby="t3-title">
+      <div class="phone-container">
+        <div class="phone-badge">SIMULADOR MOBILE (390 x 800)</div>
+        <div class="mockup-frame">
+          <div class="screen-viewport">
+            <div class="status-bar" aria-hidden="true">
+              <span>09:41</span>
+              <div class="dynamic-notch"></div>
+              <span>📶 🔋</span>
+            </div>
+
+            <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="t3-m-title">
+              <div class="modal-sheet">
+                <div class="modal-header-row">
+                  <span class="screen-tag">Cadastro Simples</span>
+                  <button class="btn-close-modal" onclick="switchTab('tela1')" aria-label="Fechar cadastro e voltar">✕</button>
+                </div>
+
+                <div>
+                  <h2 class="screen-title" id="t3-m-title">Criar Minha Conta</h2>
+                  <p class="screen-desc">Preencha seus dados para marcar suas consultas com facilidade.</p>
+                </div>
+
+                <form onsubmit="handleRegisterSubmit(event)">
+                  <!-- Bloco 1: Dados Pessoais (Chunking) -->
+                  <fieldset class="form-section">
+                    <legend class="form-section-title">Passo 1: Seus Dados Pessoais</legend>
+                    
+                    <div class="form-group">
+                      <label class="form-label" for="cad-nome">Nome Completo *</label>
+                      <input type="text" id="cad-nome" class="form-input" placeholder="Ex: Maria José da Silva" value="Dona Maria Francisca da Silva" required />
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label" for="cad-cpf">Seu CPF *</label>
+                      <input type="text" id="cad-cpf" class="form-input" data-mask="cpf" placeholder="000.000.000-00" value="123.456.789-00" required />
+                      <span class="form-hint">Máscara automática inteligente</span>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label" for="cad-nasc">Data de Nascimento *</label>
+                      <input type="text" id="cad-nasc" class="form-input" data-mask="date" placeholder="DD/MM/AAAA" value="15/08/1954" required />
+                    </div>
+                  </fieldset>
+
+                  <!-- Bloco 2: Contato & Senha -->
+                  <fieldset class="form-section">
+                    <legend class="form-section-title">Passo 2: Contato &amp; Senha</legend>
+
+                    <div class="form-group">
+                      <label class="form-label" for="cad-tel">Celular ou WhatsApp *</label>
+                      <input type="tel" id="cad-tel" class="form-input" data-mask="phone" placeholder="(00) 00000-0000" value="(81) 98765-4321" required />
+                      <span class="form-hint">Para enviarmos a confirmação da sua consulta</span>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label" for="cad-pwd">Crie uma Senha Fácil *</label>
+                      <div class="password-wrap">
+                        <input type="password" id="cad-pwd" value="senha2026" required />
+                        <button type="button" class="btn-toggle-pwd" id="btnToggleCadPwd" onclick="togglePasswordVisibility('cad-pwd', 'btnToggleCadPwd')" aria-label="Mostrar senha">
+                          👁️ Mostrar
+                        </button>
+                      </div>
+                      <span class="form-hint" style="color:#16A34A; font-weight:700;">✓ Senha boa e fácil de lembrar</span>
+                    </div>
+                  </fieldset>
+
+                  <div style="margin-bottom:14px;">
+                    <label class="checkbox-senior-row">
+                      <input type="checkbox" checked required />
+                      <span>Concordo com os Termos de Uso e Privacidade</span>
+                    </label>
+                  </div>
+
+                  <button type="submit" class="btn-mobile-primary btn-success">
+                    ✓ CONCLUIR MEU CADASTRO
+                  </button>
+
+                  <div style="text-align:center; padding-top:10px; font-size:calc(14px * var(--font-scale));">
+                    Já tem conta cadastrada? <a href="#" onclick="switchTab('tela2'); return false;" style="color:#0F52BA; font-weight:800;">Fazer Login</a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rules-panel">
+        <div class="board-header">
+          <div class="board-pre-title"><span>✦</span> ESPECIFICAÇÃO DE INTERFACE — TELA 03/06</div>
+          <h2 id="t3-title">Tela 03 — Modal de Novo Cadastro Simplificado</h2>
+          <p>
+            Formulário em coluna única com fluxo contínuo, divisão em etapas temáticas (Lei de Miller) e validação acolhedora.
+          </p>
+        </div>
+
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>🧩 Lei de Miller &amp; Agrupamento Lógico (Chunking)</h3>
+            <span class="rule-badge badge-ux">Capacidade Cognitiva</span>
+          </div>
+          <ul class="rule-list">
+            <li><strong>Separação em 2 Blocos:</strong> Bloco 1 (Identificação Civil) e Bloco 2 (Contato &amp; Senha), aliviando a memória de trabalho do idoso.</li>
+            <li><strong>Máscaras Assistidas:</strong> O sistema insere pontos, traços e parênteses automaticamente, dispensando a busca por símbolos no teclado.</li>
+            <li><strong>Validação Positiva:</strong> Exibe indicador visual acolhedor em verde ao invés de mensagens punitivas em vermelho.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TELA 04 — MINHAS CONSULTAS & PERFIL DO PACIENTE
+         ==================================================================== -->
+    <section id="panel-tela4" class="screen-panel" aria-labelledby="t4-title">
+      <div class="phone-container">
+        <div class="phone-badge">SIMULADOR MOBILE (390 x 800)</div>
+        <div class="mockup-frame">
+          <div class="screen-viewport">
+            <div class="status-bar" aria-hidden="true">
+              <span>09:41</span>
+              <div class="dynamic-notch"></div>
+              <span>📶 🔋</span>
+            </div>
+
+            <!-- Cabeçalho do Paciente Logado -->
+            <div class="mobile-header">
+              <div class="mobile-brand">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <circle cx="50" cy="50" r="45" fill="#0F52BA" />
+                  <circle cx="50" cy="38" r="18" fill="#FFFFFF" />
+                  <path d="M 22 80 C 22 66 34 60 50 60 C 66 60 78 66 78 80 Z" fill="#FFFFFF" />
+                </svg>
+                <div style="display:flex; flex-direction:column;">
+                  <span style="font-size:14px; font-weight:800; color:#0F172A; line-height:1.2;">Olá, Francisca!</span>
+                  <span style="font-size:11.5px; color:#64748B;">CPF: 123.***.***-00</span>
+                </div>
+              </div>
+              <button class="btn-help-top" onclick="handleLogout()" aria-label="Sair da conta do paciente" style="padding:6px 10px; font-size:12px;">
+                🚪 Sair
+              </button>
+            </div>
+
+            <div class="mobile-body">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <span class="screen-tag" style="background:#DCFCE7; color:#15803D;">Área do Paciente</span>
+                  <h2 class="screen-title" style="font-size:calc(20px * var(--font-scale)); margin-top:2px;">Minhas Consultas</h2>
+                </div>
+                <span id="badge-total-consultas" class="status-badge confirmada">2 agendadas</span>
+              </div>
+
+              <!-- Botão Principal: Agendar Nova Consulta -->
+              <button class="btn-mobile-primary" onclick="switchTab('tela5')" style="min-height:50px; font-size:calc(15.5px * var(--font-scale));">
+                ➕ Marcar Nova Consulta
+              </button>
+
+              <!-- Lista Dinâmica de Consultas Ativas -->
+              <div id="consultas-ativas-lista" style="display:flex; flex-direction:column; gap:12px;" aria-live="polite">
+                <!-- Renderizado via scripts/app.js -->
+              </div>
+
+              <!-- Histórico Passado Retrátil -->
+              <details style="background:#F1F5F9; border:1.5px solid var(--border-subtle); border-radius:12px; padding:12px; margin-top:8px;">
+                <summary style="font-size:calc(14px * var(--font-scale)); font-weight:800; color:#0F52BA; cursor:pointer;">
+                  📜 Ver histórico de consultas passadas
+                </summary>
+                <div id="consultas-historico-lista" style="margin-top:10px;">
+                  <!-- Renderizado via scripts/app.js -->
+                </div>
+              </details>
+
+              <div class="senior-phone-callout">
+                <span class="call-icon" aria-hidden="true">☎️</span>
+                <div>
+                  <strong>Precisa de ajuda com suas consultas?</strong>
+                  Toque para ligar grátis: <u>0800 700 8000</u>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal de Cancelamento Seguro (Dupla Confirmação) -->
+            <div id="modal-cancelamento-seguro" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="modal-cancel-title">
+              <div class="modal-sheet" style="max-height:85%;">
+                <div class="modal-header-row">
+                  <span class="screen-tag" style="background:#FEE2E2; color:#DC2626;">Atenção</span>
+                  <button class="btn-close-modal" onclick="fecharModalCancelamento()" aria-label="Fechar confirmação de cancelamento">✕</button>
+                </div>
+                <div>
+                  <h3 id="modal-cancel-title" class="screen-title" style="font-size:20px; color:#DC2626;">Cancelar Consulta?</h3>
+                  <p class="screen-desc" style="margin-top:4px;">
+                    Tem certeza de que deseja liberar este horário? O cancelamento é imediato e você precisará agendar novamente caso mude de ideia.
+                  </p>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:10px; margin-top:8px;">
+                  <button type="button" id="btnConfirmarCancelamento" class="btn-mobile-danger" onclick="executarCancelamento()">
+                    SIM, CANCELAR ESTA CONSULTA
+                  </button>
+                  <button type="button" class="btn-mobile-neutral" onclick="fecharModalCancelamento()">
+                    Não, quero manter minha consulta
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="rules-panel">
+        <div class="board-header">
+          <div class="board-pre-title"><span>✦</span> ESPECIFICAÇÃO DE INTERFACE — TELA 04/06</div>
+          <h2 id="t4-title">Tela 04 — Minhas Consultas &amp; Perfil do Paciente</h2>
+          <p>
+            Painel de gestão pessoal das consultas com persistência local demonstrativa, histórico retrátil e cancelamento protegido contra acidentes.
+          </p>
+        </div>
+
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>🎯 Reconhecimento em Vez de Memorização (Heurística de Nielsen #6)</h3>
+            <span class="rule-badge badge-ux">Heurística #6</span>
+          </div>
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th style="width: 28%;">Recurso</th>
+                <th style="width: 38%;">Implementação no Front-End</th>
+                <th style="width: 34%;">Benefício para o Paciente Sênior</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="spec-feature">Cards Visuais de Consulta</span></td>
+                <td>Borda esquerda primária destacada com dados completos (médico, sala, dia e horário).</td>
+                <td>O paciente reconhece instantaneamente seus compromissos sem precisar consultar papéis.</td>
+              </tr>
+              <tr>
+                <td><span class="spec-feature">Cancelamento Seguro</span></td>
+                <td>Modal com confirmação explícita e botão de saída prioritário.</td>
+                <td>Impede que toques involuntários ou tremores nas mãos cancelem uma consulta importante.</td>
+              </tr>
+              <tr>
+                <td><span class="spec-feature">Persistência Local (Mock)</span></td>
+                <td>Os dados são atualizados em tempo real no <code>localStorage</code> sem depender de backend ativo.</td>
+                <td>Permite demonstração completa e imediata do fluxo transacional.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>⚡ Independência de Microserviços na Interface</h3>
+            <span class="rule-badge badge-streamline">Arquitetura Front-End</span>
+          </div>
+          <ul class="rule-list">
+            <li><strong>Desacoplamento de Domínios:</strong> Se o microserviço de cancelamento apresentar lentidão, a listagem e os detalhes do paciente permanecem intactos na tela.</li>
+            <li><strong>Fallback Humanizado:</strong> Em caso de falha de conexão, o sistema orienta o paciente a utilizar o canal telefônico 0800 gratuito.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TELA 05 — AGENDAR NOVA CONSULTA
+         ==================================================================== -->
+    <section id="panel-tela5" class="screen-panel" aria-labelledby="t5-title">
+      <div class="phone-container">
+        <div class="phone-badge">SIMULADOR MOBILE (390 x 800)</div>
+        <div class="mockup-frame">
+          <div class="screen-viewport">
+            <div class="status-bar" aria-hidden="true">
+              <span>09:41</span>
+              <div class="dynamic-notch"></div>
+              <span>📶 🔋</span>
+            </div>
+
+            <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="t5-m-title">
+              <div class="modal-sheet">
+                <div class="modal-header-row">
+                  <span class="screen-tag" style="background:#DCFCE7; color:#15803D;">Novo Agendamento</span>
+                  <button class="btn-close-modal" onclick="switchTab('tela4')" aria-label="Fechar e voltar para minhas consultas">✕</button>
+                </div>
+
+                <div>
+                  <h2 class="screen-title" id="t5-m-title">Marcar Consulta</h2>
+                  <p class="screen-desc">Escolha a especialidade, médico, dia e horário desejado.</p>
+                </div>
+
+                <form onsubmit="confirmarNovoAgendamento(event)">
+                  <!-- 1. Especialidade -->
+                  <div class="form-group">
+                    <label class="form-label" for="nova-especialidade">1. Especialidade Médica *</label>
+                    <select id="nova-especialidade" class="form-input" required>
+                      <option value="Cardiologia">Cardiologia (Coração)</option>
+                      <option value="Clínica Geral">Clínica Geral (Exames de Rotina)</option>
+                      <option value="Oftalmologia">Oftalmologia (Vista / Olhos)</option>
+                      <option value="Ortopedia">Ortopedia (Ossos e Articulações)</option>
+                      <option value="Geriatria">Geriatria (Saúde do Idoso)</option>
+                    </select>
+                  </div>
+
+                  <!-- 2. Médico Credenciado -->
+                  <div class="form-group">
+                    <label class="form-label" for="nova-medico">2. Médico Credenciado *</label>
+                    <select id="nova-medico" class="form-input" required>
+                      <option value="1">Dr. Carlos Eduardo (CRM 12345-PE)</option>
+                      <option value="2">Dra. Beatriz Mendonça (CRM 54321-PE)</option>
+                      <option value="3">Dr. Roberto Alencar (CRM 98765-PE)</option>
+                    </select>
+                  </div>
+
+                  <!-- 3. Mini Calendário para Nova Consulta -->
+                  <div class="form-group">
+                    <label class="form-label" for="nova-data">3. Escolha o Dia *</label>
+                    <div style="position:relative; display:flex; align-items:center; cursor:pointer;" onclick="toggleMiniCalendar('miniCalendarNova', 'calHintNova')">
+                      <input type="text" id="nova-data" class="form-input" value="Sexta-feira, 23/10/2026" readonly style="border-color:#0284C7; font-weight:700; padding-right:48px; background:#FFFFFF; cursor:pointer;" />
+                      <span style="position:absolute; right:14px; font-size:22px; pointer-events:none;" aria-hidden="true">📅</span>
+                    </div>
+                    <span class="form-hint" id="calHintNova">Toque acima para abrir o calendário</span>
+
+                    <div class="mini-calendar" id="miniCalendarNova">
+                      <div class="cal-header">
+                        <span class="cal-month-title">📅 Outubro de 2026</span>
+                      </div>
+                      <div class="cal-weekdays">
+                        <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+                      </div>
+                      <div class="cal-days-grid">
+                        <span class="cal-day empty"></span>
+                        <span class="cal-day empty"></span>
+                        <span class="cal-day empty"></span>
+                        <span class="cal-day empty"></span>
+                        <button type="button" class="cal-day" onclick="selectDate(19, 10, 2026, 1, this, event, 'nova-data', 'miniCalendarNova', 'calHintNova')">19</button>
+                        <button type="button" class="cal-day" onclick="selectDate(20, 10, 2026, 2, this, event, 'nova-data', 'miniCalendarNova', 'calHintNova')">20</button>
+                        <button type="button" class="cal-day disabled" title="Sem vagas">21</button>
+                        <button type="button" class="cal-day" onclick="selectDate(22, 10, 2026, 4, this, event, 'nova-data', 'miniCalendarNova', 'calHintNova')">22</button>
+                        <button type="button" class="cal-day selected" onclick="selectDate(23, 10, 2026, 5, this, event, 'nova-data', 'miniCalendarNova', 'calHintNova')">23</button>
+                        <button type="button" class="cal-day disabled">24</button>
+                        <button type="button" class="cal-day disabled">25</button>
+                        <button type="button" class="cal-day" onclick="selectDate(26, 10, 2026, 1, this, event, 'nova-data', 'miniCalendarNova', 'calHintNova')">26</button>
+                        <button type="button" class="cal-day" onclick="selectDate(27, 10, 2026, 2, this, event, 'nova-data', 'miniCalendarNova', 'calHintNova')">27</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 4. Chips de Horários -->
+                  <div class="form-group">
+                    <label class="form-label">4. Escolha o Horário *</label>
+                    <div class="chips-grid">
+                      <button type="button" class="time-chip selected" onclick="selectChip(this)" aria-checked="true">
+                        ✓ 09:00 (Manhã)
+                      </button>
+                      <button type="button" class="time-chip" onclick="selectChip(this)" aria-checked="false">
+                        10:30 (Manhã)
+                      </button>
+                      <button type="button" class="time-chip" onclick="selectChip(this)" aria-checked="false">
+                        14:00 (Tarde)
+                      </button>
+                      <button type="button" class="time-chip" onclick="selectChip(this)" aria-checked="false">
+                        16:00 (Tarde)
+                      </button>
+                    </div>
+                  </div>
+
+                  <div style="display:flex; flex-direction:column; gap:10px; margin-top:12px;">
+                    <button type="submit" class="btn-mobile-primary btn-success">
+                      ✓ CONFIRMAR AGENDAMENTO
+                    </button>
+                    <button type="button" class="btn-mobile-neutral" onclick="switchTab('tela4')">
+                      Voltar para Minhas Consultas
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rules-panel">
+        <div class="board-header">
+          <div class="board-pre-title"><span>✦</span> ESPECIFICAÇÃO DE INTERFACE — TELA 05/06</div>
+          <h2 id="t5-title">Tela 05 — Agendar Nova Consulta Guiada</h2>
+          <p>
+            Fluxo progressivo com apoio à escolha: especialidade em linguagem acessível, calendário retrátil e turno nos chips.
+          </p>
+        </div>
+
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>🎯 Fluxo Linear &amp; Redução da Carga Cognitiva</h3>
+            <span class="rule-badge badge-streamline">Design System</span>
+          </div>
+          <ul class="rule-list">
+            <li><strong>Linguagem Popular entre Parênteses:</strong> "Oftalmologia (Vista / Olhos)" e "Geriatria (Saúde do Idoso)", facilitando o entendimento de quem tem baixa literacia em saúde.</li>
+            <li><strong>Turno Explícito nos Horários:</strong> Indicação textual "(Manhã)" ou "(Tarde)", essencial para idosos organizarem horários de transporte e medicação.</li>
+            <li><strong>Disparo Automático de Mensagens:</strong> O microserviço de mensageria simula o envio imediato da confirmação via WhatsApp.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TELA 06 — REAGENDAR CONSULTA
+         ==================================================================== -->
+    <section id="panel-tela6" class="screen-panel" aria-labelledby="t6-title">
+      <div class="phone-container">
+        <div class="phone-badge">SIMULADOR MOBILE (390 x 800)</div>
+        <div class="mockup-frame">
+          <div class="screen-viewport">
+            <div class="status-bar" aria-hidden="true">
+              <span>09:41</span>
+              <div class="dynamic-notch"></div>
+              <span>📶 🔋</span>
+            </div>
+
+            <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="t6-m-title">
+              <div class="modal-sheet">
+                <div class="modal-header-row">
+                  <span class="screen-tag" style="background:#FEF3C7; color:#B45309;">Mudança de Horário</span>
+                  <button class="btn-close-modal" onclick="switchTab('tela4')" aria-label="Fechar e voltar">✕</button>
+                </div>
+
+                <div>
+                  <h2 class="screen-title" id="t6-m-title">Mudar Dia da Consulta</h2>
+                  <p class="screen-desc">Escolha uma nova data e horário disponível.</p>
+                </div>
+
+                <!-- Card de Consulta Atual com Alto Destaque Contextual -->
+                <div id="reag-resumo-card" style="background:#EFF6FF; border:2px solid #BFDBFE; border-radius:14px; padding:14px; display:flex; flex-direction:column; gap:4px;">
+                  <span style="font-size:calc(12px * var(--font-scale)); font-weight:800; color:#1D4ED8; text-transform:uppercase;">
+                    📅 Consulta que você quer mudar:
+                  </span>
+                  <div style="font-size:calc(18px * var(--font-scale)); font-weight:800; color:#0F172A;">
+                    Dr. Carlos Eduardo
+                  </div>
+                  <div style="font-size:calc(15px * var(--font-scale)); color:#1E3A8A; font-weight:700;">
+                    Cardiologista • CRM 12345-PE
+                  </div>
+                  <div style="font-size:calc(14px * var(--font-scale)); color:#334155; margin-top:2px;">
+                    Horário atual: <strong>Quinta-feira, 15/10 às 10:30h</strong><br>
+                    Local: Consultório 402 - Unidade Central
+                  </div>
+                </div>
+
+                <!-- Seletor do Novo Dia com Mini Calendário Integrado -->
+                <div class="form-group" style="margin-top:6px;">
+                  <label class="form-label" for="reag-data">
+                    <span>1. Escolha o Novo Dia *</span>
+                  </label>
+                  <div style="position:relative; display:flex; align-items:center; cursor:pointer;" onclick="toggleMiniCalendar('miniCalendar', 'calHint')">
+                    <input type="text" id="reag-data" class="form-input" value="Quinta-feira, 22/10/2026" readonly style="border-color:#0284C7; font-weight:700; padding-right:48px; background:#FFFFFF; cursor:pointer;" />
+                    <span style="position:absolute; right:14px; font-size:22px; pointer-events:none;" aria-hidden="true">📅</span>
+                  </div>
+                  <span class="form-hint" id="calHint">Toque acima para abrir o calendário</span>
+
+                  <div class="mini-calendar" id="miniCalendar">
+                    <div class="cal-header">
+                      <span class="cal-month-title">📅 Outubro de 2026</span>
+                    </div>
+                    <div class="cal-weekdays">
+                      <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+                    </div>
+                    <div class="cal-days-grid">
+                      <span class="cal-day empty"></span>
+                      <span class="cal-day empty"></span>
+                      <span class="cal-day empty"></span>
+                      <span class="cal-day empty"></span>
+                      <button type="button" class="cal-day" onclick="selectDate(1, 10, 2026, 4, this, event)">1</button>
+                      <button type="button" class="cal-day" onclick="selectDate(2, 10, 2026, 5, this, event)">2</button>
+                      <button type="button" class="cal-day disabled">3</button>
+                      <button type="button" class="cal-day disabled">4</button>
+                      <button type="button" class="cal-day" onclick="selectDate(5, 10, 2026, 1, this, event)">5</button>
+                      <button type="button" class="cal-day" onclick="selectDate(6, 10, 2026, 2, this, event)">6</button>
+                      <button type="button" class="cal-day" onclick="selectDate(7, 10, 2026, 3, this, event)">7</button>
+                      <button type="button" class="cal-day" onclick="selectDate(8, 10, 2026, 4, this, event)">8</button>
+                      <button type="button" class="cal-day" onclick="selectDate(9, 10, 2026, 5, this, event)">9</button>
+                      <button type="button" class="cal-day disabled">10</button>
+                      <button type="button" class="cal-day disabled">11</button>
+                      <button type="button" class="cal-day disabled">12</button>
+                      <button type="button" class="cal-day" onclick="selectDate(13, 10, 2026, 2, this, event)">13</button>
+                      <button type="button" class="cal-day" onclick="selectDate(14, 10, 2026, 3, this, event)">14</button>
+                      <button type="button" class="cal-day" onclick="selectDate(15, 10, 2026, 4, this, event)">15</button>
+                      <button type="button" class="cal-day" onclick="selectDate(16, 10, 2026, 5, this, event)">16</button>
+                      <button type="button" class="cal-day disabled">17</button>
+                      <button type="button" class="cal-day disabled">18</button>
+                      <button type="button" class="cal-day" onclick="selectDate(19, 10, 2026, 1, this, event)">19</button>
+                      <button type="button" class="cal-day" onclick="selectDate(20, 10, 2026, 2, this, event)">20</button>
+                      <button type="button" class="cal-day" onclick="selectDate(21, 10, 2026, 3, this, event)">21</button>
+                      <button type="button" class="cal-day selected" onclick="selectDate(22, 10, 2026, 4, this, event)">22</button>
+                      <button type="button" class="cal-day" onclick="selectDate(23, 10, 2026, 5, this, event)">23</button>
+                      <button type="button" class="cal-day disabled">24</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Chips Grandes de Horários 2x2 -->
+                <div>
+                  <label class="form-label" style="margin-bottom:8px;">
+                    <span>2. Escolha o Novo Horário *</span>
+                  </label>
+                  <div class="chips-grid">
+                    <button type="button" class="time-chip" onclick="selectChip(this)" aria-checked="false">
+                      09:00 (Manhã)
+                    </button>
+                    <button type="button" class="time-chip selected" onclick="selectChip(this)" aria-checked="true">
+                      ✓ 10:30 (Manhã)
+                    </button>
+                    <button type="button" class="time-chip" onclick="selectChip(this)" aria-checked="false">
+                      14:00 (Tarde)
+                    </button>
+                    <button type="button" class="time-chip" onclick="selectChip(this)" aria-checked="false">
+                      16:30 (Tarde)
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Ações Transparentes e Seguras -->
+                <div style="display:flex; flex-direction:column; gap:10px; margin-top:10px;">
+                  <button type="button" class="btn-mobile-primary btn-success" onclick="confirmarReagendamento()">
+                    ✓ CONFIRMAR NOVO HORÁRIO
+                  </button>
+                  <button type="button" class="btn-mobile-neutral" onclick="switchTab('tela4')">
+                    Não mudar nada (Manter consulta atual)
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rules-panel">
+        <div class="board-header">
+          <div class="board-pre-title"><span>✦</span> ESPECIFICAÇÃO DE INTERFACE — TELA 06/06</div>
+          <h2 id="t6-title">Tela 06 — Modal de Reagendar Consulta Guiado</h2>
+          <p>
+            Apoio total à memória humana: resumo fixo da consulta atual, seleção de horários em chips 2x2 e botão de saída seguro.
+          </p>
+        </div>
+
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>🎯 Gestão de Reagendamento &amp; Interações</h3>
+            <span class="rule-badge badge-streamline">Clareza Transacional</span>
+          </div>
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th style="width: 28%;">Elemento</th>
+                <th style="width: 38%;">Comportamento</th>
+                <th style="width: 34%;">Benefício para o Paciente Sênior</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="spec-feature">Card de Consulta Atual</span></td>
+                <td>Exibe médico, especialidade, dia atual e sala da consulta.</td>
+                <td>O paciente reconhece o agendamento sem precisar consultar papéis externos.</td>
+              </tr>
+              <tr>
+                <td><span class="spec-feature">Mini Calendário Retrátil</span></td>
+                <td>Abre sob demanda ao tocar no campo de data e fecha automaticamente após a seleção.</td>
+                <td>Poupa espaço vertical e conduz imediatamente o olhar para a grade de horários.</td>
+              </tr>
+              <tr>
+                <td><span class="spec-feature">Botão Neutro Tranquilizador</span></td>
+                <td>"Não mudar nada (Manter consulta atual)".</td>
+                <td>Elimina o pânico de cancelar acidentalmente a vaga se o paciente quiser desistir da troca.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         ABA GERAL — ARQUITETURA, DIRETRIZES & ACESSIBILIDADE WCAG
+         ==================================================================== -->
+    <section id="panel-geral" class="screen-panel" aria-labelledby="tg-title">
+      <div style="grid-column: 1 / -1; display:flex; flex-direction:column; gap:24px;">
+        <div class="board-header">
+          <div class="board-pre-title"><span>✦</span> VISÃO SISTÊMICA &amp; MATRIZ DE DIRETRIZES TÉCNICAS</div>
+          <h2 id="tg-title">Consulta Fácil: Arquitetura Front-End, Design System &amp; WCAG 2.1 AAA</h2>
+          <p>
+            Documentação técnica e fundamentos teóricos para a entrega acadêmica do projeto.
+          </p>
+        </div>
+
+        <!-- Grade de Resumo das Telas do Paciente -->
+        <div class="overview-grid">
+          <div class="overview-card">
+            <h3 style="color:#FFFFFF; font-size:18px;">Tela 01 — Boas-Vindas</h3>
+            <p style="color:#CBD5E1; font-size:14px;">Acolhimento com botões na primeira dobra, canal telefônico 0800 gratuito e selo de segurança padrão CFM/SUS.</p>
+            <button class="tab-btn" onclick="switchTab('tela1')">Ver Tela 01 →</button>
+          </div>
+
+          <div class="overview-card">
+            <h3 style="color:#FFFFFF; font-size:18px;">Tela 02 — Login Seguro</h3>
+            <p style="color:#CBD5E1; font-size:14px;">Identificação por CPF, botão bimodal [👁️ Mostrar / 🙈 Ocultar] senha e foco visível WCAG 2.4.7.</p>
+            <button class="tab-btn" onclick="switchTab('tela2')">Ver Tela 02 →</button>
+          </div>
+
+          <div class="overview-card">
+            <h3 style="color:#FFFFFF; font-size:18px;">Tela 03 — Novo Cadastro</h3>
+            <p style="color:#CBD5E1; font-size:14px;">Formulário em coluna única espaçada (54px), chunking temático em 2 blocos e máscaras inteligentes.</p>
+            <button class="tab-btn" onclick="switchTab('tela3')">Ver Tela 03 →</button>
+          </div>
+
+          <div class="overview-card">
+            <h3 style="color:#FFFFFF; font-size:18px;">Tela 04 — Minhas Consultas</h3>
+            <p style="color:#CBD5E1; font-size:14px;">Painel pessoal do paciente com consultas ativas, histórico retrátil e cancelamento com dupla confirmação.</p>
+            <button class="tab-btn" onclick="switchTab('tela4')">Ver Tela 04 →</button>
+          </div>
+
+          <div class="overview-card">
+            <h3 style="color:#FFFFFF; font-size:18px;">Tela 05 — Nova Consulta</h3>
+            <p style="color:#CBD5E1; font-size:14px;">Agendamento progressivo: especialidade com termos populares, catálogo médico e chips de horário.</p>
+            <button class="tab-btn" onclick="switchTab('tela5')">Ver Tela 05 →</button>
+          </div>
+
+          <div class="overview-card">
+            <h3 style="color:#FFFFFF; font-size:18px;">Tela 06 — Reagendar</h3>
+            <p style="color:#CBD5E1; font-size:14px;">Card contextual em azul claro, mini calendário interativo retrátil e botão seguro de manutenção de vaga.</p>
+            <button class="tab-btn" onclick="switchTab('tela6')">Ver Tela 06 →</button>
+          </div>
+        </div>
+
+        <!-- Síntese dos 4 Critérios de Avaliação -->
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>📑 Atendimento aos 4 Requisitos Oficiais do Trabalho</h3>
+            <span class="rule-badge badge-wcag">Padrão WCAG AAA &amp; SUS</span>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:20px; margin-top:8px;">
+            <div>
+              <h4 style="color:#38BDF8; font-size:16px; margin-bottom:6px;">1. Componentização &amp; Microserviços</h4>
+              <p style="color:#CBD5E1; font-size:14px; line-height:1.5;">
+                • Estrutura modular desacoplada em componentes semânticos (Header, Viewport, Sheets, Cards, Calendário).<br>
+                • Camada de microserviços simulada via <code>scripts/mock-services.js</code> (AuthService, AppointmentService, DoctorService, NotificationService), garantindo resiliência se um serviço falhar.
+              </p>
+            </div>
+
+            <div>
+              <h4 style="color:#38BDF8; font-size:16px; margin-bottom:6px;">2. Design System no Código &amp; Bootstrap 5.3</h4>
+              <p style="color:#CBD5E1; font-size:14px; line-height:1.5;">
+                • Integração oficial do framework <strong>Bootstrap 5.3</strong> com customização interna de tokens (<code>--bs-primary</code>, <code>--bs-body-bg</code>).<br>
+                • Paleta 60-30-10 e botão dinâmico de <strong>Modo Sênior</strong> (+20% de fonte e contraste ampliado).
+              </p>
+            </div>
+
+            <div>
+              <h4 style="color:#38BDF8; font-size:16px; margin-bottom:6px;">3. Protótipo Funcional Responsivo (Framework Moderno)</h4>
+              <p style="color:#CBD5E1; font-size:14px; line-height:1.5;">
+                • Uso do <strong>Bootstrap 5.3</strong> como framework de estilização de mercado obrigatório.<br>
+                • 100% responsivo (Mobile-First) e funcional sem banco de dados com persistência via LocalStorage.
+              </p>
+            </div>
+
+            <div>
+              <h4 style="color:#38BDF8; font-size:16px; margin-bottom:6px;">4. Acessibilidade Prática (WCAG 2.1 AAA)</h4>
+              <p style="color:#CBD5E1; font-size:14px; line-height:1.5;">
+                • <strong>Semântica:</strong> <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;fieldset&gt;</code>, <code>&lt;legend&gt;</code>.<br>
+                • <strong>ARIA &amp; Alt:</strong> <code>aria-label</code> em botões de ícone, <code>aria-pressed</code> no Modo Sênior, <code>aria-live="polite"</code> para alertas e <code>aria-hidden="true"</code> em ícones decorativos.<br>
+                • <strong>Teclado:</strong> Navegação total por <code>Tab</code>, anel de foco visível de 3px e tecla <code>Esc</code> para fechar modais.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Rodapé Institucional Acessível -->
+  <footer class="app-footer">
+    <p><strong>Consulta Fácil</strong> — Sistema de Agendamento Médico com Acessibilidade Sênior (WCAG 2.1 AAA).</p>
+    <p style="margin-top:6px; font-size:13px; color:#64748B;">Desenvolvido em conformidade com as Leis de Fitts, Hick, Miller e Heurísticas de Nielsen.</p>
+  </footer>
+
+  <!-- Scripts Modulares: Camada de Serviços Mock + Lógica da Aplicação -->
+  <script src="scripts/mock-services.js"></script>
+  <script src="scripts/app.js"></script>
+
+</body>
+</html>
