@@ -5,6 +5,27 @@
 
 ---
 
+### 🎓 Informações Acadêmicas
+* **Instituição:** Faculdade Esuda
+* **Curso:** Análise e Desenvolvimento de Sistemas (ADS)
+* **Disciplina:** INTERFACES DIGITAIS UX/UI
+* **Atividade:** Projeto de Design UX/UI e Arquitetura de Interface
+* **Equipe / Membros:**
+  * Wilson de Santana
+  * Carlos Everton
+  * Rodrigo Belarmino
+  * André Vinicius Bastos
+  * Ricardo Vinicius
+
+---
+
+### 🌐 Links de Acesso e Código-Fonte da Entrega
+* **🚀 Link Público Principal (Vercel):** [https://ux-ui-paciente.vercel.app](https://ux-ui-paciente.vercel.app)
+* **📦 Repositório no GitHub:** [https://github.com/wil-santana/UxUiPaciente](https://github.com/wil-santana/UxUiPaciente)
+* **📄 Relatório Técnico Oficial:** Arquivo `Relatorio_Tecnico_UXUI_ConsultaFacil.pdf`
+
+---
+
 ## 📌 Sumário
 1. [Sobre o Projeto](#-sobre-o-projeto)
 2. [Arquitetura de Componentes e Microserviços na Interface](#1-arquitetura-de-componentes-e-microserviços-na-interface)
@@ -184,7 +205,7 @@ Por ter sido construído com **HTML5, CSS3 e JavaScript nativo modular**, o proj
 
 1. Clone o repositório ou baixe os arquivos para o seu computador:
    ```bash
-   git clone https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
+   git clone https://github.com/wil-santana/UxUiPaciente.git
    ```
 2. Abra a pasta do projeto.
 3. Dê um duplo clique no arquivo **`index.html`** (ou abra-o em qualquer navegador: Chrome, Edge, Firefox, Safari).
@@ -194,19 +215,21 @@ Por ter sido construído com **HTML5, CSS3 e JavaScript nativo modular**, o proj
 
 ## 🌐 Publicação e Hospedagem Gratuita (Deploy)
 
-O projeto está 100% pronto para publicação em serviços de hospedagem gratuita com apenas 1 clique:
+O projeto está publicado e disponível online em:
 
-### Opção 1: GitHub Pages (Recomendado)
-1. Crie um repositório no GitHub e envie os arquivos (`index.html`, `styles/`, `scripts/`, `README.md`).
-2. No repositório, clique em **Settings** > **Pages** (no menu lateral esquerdo).
-3. Na seção **Branch**, selecione `main` (ou `master`) e a pasta `/ (root)`.
-4. Clique em **Save**.
-5. Em poucos segundos, o GitHub fornecerá o link público do projeto (ex: `https://seu-usuario.github.io/seu-repositorio/`).
+* **🚀 Produção na Vercel:** [https://ux-ui-paciente.vercel.app](https://ux-ui-paciente.vercel.app)
+* **📦 Código no GitHub:** [https://github.com/wil-santana/UxUiPaciente](https://github.com/wil-santana/UxUiPaciente)
 
-### Opção 2: Vercel ou Netlify
-1. Acesse [vercel.com](https://vercel.com) ou [netlify.com](https://netlify.com).
-2. Conecte sua conta do GitHub ou simplesmente arraste a pasta do projeto para o painel de *Deploy*.
-3. O deploy será concluído em menos de 1 minuto sem nenhuma etapa de build.
+### Como publicar novamente ou via GitHub Pages:
+
+#### Opção 1: Vercel (Já Ativa e Recomendada)
+1. Conectado diretamente ao repositório GitHub `wil-santana/UxUiPaciente`.
+2. Qualquer commit enviado para a branch `main` atualiza o site na Vercel automaticamente em segundos.
+
+#### Opção 2: GitHub Pages (Alternativa)
+1. No repositório GitHub, acesse **Settings** > **Pages**.
+2. Em **Branch**, selecione `main` e a pasta `/ (root)`.
+3. Clique em **Save** para obter o link adicional: `https://wil-santana.github.io/UxUiPaciente/`.
 
 ---
 
@@ -219,4 +242,5 @@ O projeto está 100% pronto para publicação em serviços de hospedagem gratuit
 5. **LocalStorage API:** Simula perfeitamente um banco de dados real e microserviços desacoplados, viabilizando a demonstração completa de fluxos transacionais (adicionar, editar, cancelar) sem custos de infraestrutura ou falhas de servidor durante a apresentação do trabalho.
 
 ---
-*Projeto desenvolvido para fins acadêmicos e avaliação na disciplina de Front-End, UI/UX e Acessibilidade Digital.*
+*Faculdade Esuda — Curso de Análise e Desenvolvimento de Sistemas (ADS)*  
+*INTERFACES DIGITAIS UX/UI — 2026*
